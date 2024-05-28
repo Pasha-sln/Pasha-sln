@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доброго времени суток</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #ccffcc; /* светло-зеленый цвет фона */
+            color: #000000; /* черный цвет текста */
+        }
+        button {
+            background-color: #006400; /* темно-зеленый цвет кнопки */
+            color: #ffffff; /* белый цвет текста кнопки */
+            padding: 10px 20px; /* больший размер кнопки */
+            font-size: 16px; /* размер шрифта кнопки */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Доброго времени суток</h1>
+    <p id="question">Давай ответить на вопросик?</p>
+    <div id="form">
+        <label for="name">Как вас зовут?</label>
+        <input type="text" id="name" placeholder="Введите ваше имя">
+        <button onclick="submitName()">Отправить</button>
+    </div>
+    <div id="message"></div>
+
+    <h2>Вычислить максимальное из двух чисел</h2>
+    <div id="calc-form">
+        <label for="num1">Число 1:</label>
+        <input type="number" id="num1" placeholder="Введите первое число">
+        <label for="num2">Число 2:</label>
+        <input type="number" id="num2" placeholder="Введите второе число">
+        <button onclick="calculateMax()">Вычислить</button>
+    </div>
+    <div id="result"></div>
+
+    <script>
+        function submitName() {
+            var name = document.getElementById('name').value;
+            var messageDiv = document.getElementById('message');
+            if (name) {
+                messageDiv.innerHTML = "Ваше имя - " + name;
+                document.getElementById('form').style.display = 'none';
+            } else {
+                messageDiv.innerHTML = "Пожалуйста, введите ваше имя.";
+            }
+        }
+
+        function calcD(a, b) {
+            return Math.max(a, b);
+        }
+
+        function calculateMax() {
+            var num1 = parseFloat(document.getElementById('num1').value);
+            var num2 = parseFloat(document.getElementById('num2').value);
+            var resultDiv = document.getElementById('result');
+            if (!isNaN(num1) && !isNaN(num2)) {
+                var max = calcD(num1, num2);
+                resultDiv.innerHTML = "Максимальное значение: " + max;
+            } else {
+                resultDiv.innerHTML = "Пожалуйста, введите два числа.";
+            }
+        }
+    </script>
+</body>
+</html>
