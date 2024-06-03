@@ -48,8 +48,8 @@
             cursor: pointer;
             display: none;
         }
-        /* #calcButton {
-            background-color: #00008B; /* синий цвет кнопки */
+        #darkThemeButton, #saluteButton {
+            background-color: #5e5e5e; /* серый цвет кнопки */
             color: #ffffff; /* белый цвет текста кнопки */
             padding: 10px 20px; /* больший размер кнопки */
             font-size: 16px; /* размер шрифта кнопки */
@@ -58,16 +58,25 @@
             cursor: pointer;
             margin-top: 20px;
         }
-        #individualButton {
-            background-color: #FF69B4; /* ярко-розовый цвет кнопки */
-            color: #ffffff; /* белый цвет текста кнопки */
-            padding: 10px 20px; /* больший размер кнопки */
-            font-size: 16px; /* размер шрифта кнопки */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        } */
+        .balloon {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            bottom: 0;
+            border-radius: 50%;
+            opacity: 0;
+            animation: rise 5s forwards;
+        }
+        @keyframes rise {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-600px) scale(2);
+            }
+        }
     </style>
 </head>
 <body>
@@ -84,15 +93,13 @@
             <option value="male">Мужской</option>
             <option value="female">Женский</option>
             <option value="other">Я не такой, как все ;)</option>
-        </select><br><br>
+        </select><br><br
         <label>Выберите должность:</label><br>
         <input type="checkbox" id="user" name="position" value="user">
         <label for="user">User</label><br>
         <input type="checkbox" id="admin" name="position" value="admin">
         <label for="admin">Admin</label><br><br>
         <button id="createButton" onclick="createCard()">Создать визитную карточку</button>
-        <!-- <button id="calcButton" onclick="goToCalculator()">Калькулятор</button>
-        <button id="individualButton" onclick="goToIndividual()">индивидуалка</button> -->
     </div>
     <div id="card">
         <img id="cardAvatar" src="" alt="Avatar" class="avatar">
@@ -104,6 +111,11 @@
             <span class="position" id="cardPosition"></span>
         </div>
     </div>
+    <button id="darkThemeButton" onclick="toggleDarkTheme()">Темная тема</button>
+    <button id="saluteButton" onclick="showSalute()">Салют</button>
+    
+    <h2><button onclick="window.location.href = 'ind3.html';">Перейти к калькулятору</button></h2>
+    <h2><button onclick="window.location.href = 'individualka.html';">Перейти на индивидивидуалку</button></h2>
 
     <script>
         function validateName(input) {
@@ -170,20 +182,58 @@
             document.getElementById('form').style.display = 'none';
         }
 
-        // function goToCalculator() {
-        //     window.location.href = 'file:ind3.html'; // Change 'calculator.html' to the actual URL of the calculator page
-        // }
+        function toggleDarkTheme() {
+            var body = document.body;
+            var card = document.getElementById('card');
+            var createButton = document.getElementById('createButton');
+            var darkThemeButton = document.getElementById('darkThemeButton');
 
-        // function goToIndividual() {
-        //     window.location.href = 'file:///D:/lab3/individualka.html'; // Change this to the actual URL of the individual page
-        // }
+            if (body.style.backgroundColor === 'rgb(255, 204, 203)') {
+                body.style.backgroundColor = '#2f2f2f';
+                body.style.color = 'rgb(94, 52, 82)';
+                card.style.backgroundColor = '#3f3f3f';
+                card.style.borderColor = 'rgb(94, 52, 82)';
+                createButton.style.backgroundColor = 'rgb(94, 52, 82)';
+                darkThemeButton.style.backgroundColor = 'rgb(94, 52, 82)';
+            } else {
+                body.style.backgroundColor = '#ffcccb';
+                body.style.color = '#000000';
+                card.style.backgroundColor = '#ffffff';
+                card.style.borderColor = '#000';
+                createButton.style.backgroundColor = '#008000';
+                darkThemeButton.style.backgroundColor = '#5e5e5e';
+            }
+        }
 
+        function showSalute() {
+            for (var i = 0; i < 50; i++) {
+                createBalloon();
+            }
+
+            setTimeout(function() {
+                var balloons = document.getElementsByClassName('balloon');
+                while (balloons[0]) {
+                    balloons[0].parentNode.removeChild(balloons[0]);
+                }
+            }, 5000);
+        }
+
+        function createBalloon() {
+            var balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.backgroundColor = getRandomColor();
+            balloon.style.left = (Math.random() * window.innerWidth) + 'px';
+            document.body.appendChild(balloon);
+        }
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
     </script>
-    
 </body>
-<body>
-    <h2><button onclick="window.location.href = 'ind3.html';">Перейти к калькулятору</button></h2>
-    <h2><button onclick="window.location.href = 'individualka.html';">Перейти на индивидивидуалку</button></h2>
-    
-    </body>
 </html>
